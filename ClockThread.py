@@ -3,12 +3,11 @@ import time
 
 class ClockThread(QThread):
     timeout = pyqtSignal()
-    def __init__(self, interval, semaphore, window):
+    def __init__(self, interval, semaphore):
         QThread.__init__(self)
         #устанавливаем интервал для работы потока
         self.interval = interval
         self.semaphore = semaphore
-        self.window = window
     def run(self):
         while True:
             #ждем семафор
