@@ -5,6 +5,7 @@ from uiMainWindow import Ui_MainWindow
 from TableModel import TableModel
 from DelegateComboBox import DelegateComboBox
 from ClockThread import ClockThread
+import threading
 
 class Window(QtWidgets.QMainWindow):
     #семафор для работы потока
@@ -63,9 +64,10 @@ class Window(QtWidgets.QMainWindow):
         #создаем поток (с инетрвалом 1), чтобы он вызывал функцию рисования графика через некоторое время после выыбора столбцов
         #так как у меня основной поток не вовремя вызывает обработчик сигнала (данные о выборе не успевают обновлятся)
         self.t = ClockThread(1, self.sem, self)
+        self.t.sign.connect(self.plotFromSelectedColumn)
         #запускаем
         self.t.start()
-        #QtCore.QObject.moveToThread(, self.t)
+
 
     #вызывается при измении размеров окна
     def resizeEvent(self, a0: QtGui.QResizeEvent):
