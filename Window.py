@@ -31,7 +31,7 @@ class Window(QtWidgets.QMainWindow):
         #обработка сигнала от кнопки Resize
         self.ui.btResizeTable.clicked.connect(self.resizeTableView)
         #обработка выбора столбцов в таблице
-        self.ui.tableView.selectionModel().currentChanged.connect(self.currentChangedInTableView)
+        #self.ui.tableView.selectionModel().currentChanged.connect(self.currentChangedInTableView)
 
 
         #добавляем действия в меню для загрузки данных из файла
@@ -60,7 +60,7 @@ class Window(QtWidgets.QMainWindow):
         self.saveFileHdf.triggered.connect(self.saveData)
         self.saveFileTxt.triggered.connect(self.saveData)
 
-        #создаем поток (с инетрвалом 1), чтобы он вызывал функцию рисования графика через некоторое время после выыбора столбцов
+        #создаем timer с инетрвалом 1с чтобы он вызывал функцию рисования графика через некоторое время после выбора столбцов
         #так как у меня основной поток не вовремя вызывает обработчик сигнала (данные о выборе не успевают обновлятся)
         self.t = QtCore.QTimer(self)
         self.t.timeout.connect(self.plotFromSelectedColumn)
