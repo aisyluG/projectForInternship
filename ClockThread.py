@@ -2,7 +2,7 @@ from PyQt5.QtCore import QThread, pyqtSignal
 import time
 
 class ClockThread(QThread):
-    sign = pyqtSignal()
+    timeout = pyqtSignal()
     def __init__(self, interval, semaphore, window):
         QThread.__init__(self)
         #устанавливаем интервал для работы потока
@@ -16,5 +16,5 @@ class ClockThread(QThread):
             #ждем пока в таблице обновятся данные
             time.sleep(self.interval)
             #отрисовываем график выбранных значений
-            self.sign.emit()
+            self.timeout.emit()
             #self.window.plotFromSelectedColumn()
