@@ -11,7 +11,7 @@ class ClockThread(QThread):
         self.window = window
     def run(self):
         while True:
-            #ждем семафора
+            #ждем семафор
             self.semaphore.acquire()
             #ждем пока в таблице обновятся данные
             time.sleep(self.interval)
