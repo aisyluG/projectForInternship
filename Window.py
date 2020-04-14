@@ -31,8 +31,8 @@ class Window(QtWidgets.QMainWindow):
         #обработка сигнала от кнопки Resize
         self.ui.btResizeTable.clicked.connect(self.resizeTableView)
         #обработка выбора столбцов в таблице
-        #self.ui.tableView.selectionModel().currentChanged.connect(self.currentChangedInTableView)
-
+        #self.ui.tableView.model().dataChanged.connect(self.currentChangedInTableView)
+        #self.ui.tableView.model().dataChanged.connect(self.plotFromSelectedColumn)
 
         #добавляем действия в меню для загрузки данных из файла
         #HDF
@@ -66,6 +66,10 @@ class Window(QtWidgets.QMainWindow):
         self.t.timeout.connect(self.plotFromSelectedColumn)
         self.t.start(1000)
 
+        # создаем поток с интервалом 1с чтобы он вызывал функцию рисования графика через некоторое время после выбора столбцов
+        # self.t = ClockThread(1, self.sem)
+        # self.t.timeout.connect(self.plotFromSelectedColumn)
+        # self.t.start()
 
     #вызывается при измении размеров окна
     def resizeEvent(self, a0: QtGui.QResizeEvent):
@@ -105,7 +109,7 @@ class Window(QtWidgets.QMainWindow):
             #получаем значения из модели
             values = zip(self.ui.tableView.model().columnValues(columns.pop()), self.ui.tableView.model().columnValues(columns.pop()))
             #сортируем
-            y, x = list(zip(*sorted(values)))
+            x, y = list(zip(*sorted(values)))
             #отрисовываем график
             self.ui.graphWidget.plot(x, y)
 
