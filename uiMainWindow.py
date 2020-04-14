@@ -24,6 +24,7 @@ class Ui_MainWindow(object):
         self.graphWidget.setGeometry(QtCore.QRect(0, 400, 700, 275))
         self.graphWidget.setObjectName("graphWidget")
 
+        #кнопки и надписи находятся в одном боксе
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBox.setGeometry(QtCore.QRect(700, 0, 200, 381))
         self.groupBox.setObjectName("groupBox")
